@@ -1,0 +1,6 @@
+<h1>Welcome to <%= @user.username %>'s profile</h1>
+Description: 
+<p><%= @user.email %></p>
+<% if current_user.id == @user.id or current_user.has_role? :admin %>
+    <%= link_to "Edit Profile", edit_user_registration_path(@user) %>
+<% end %>
