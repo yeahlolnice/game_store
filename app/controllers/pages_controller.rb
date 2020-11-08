@@ -19,4 +19,5 @@ class PagesController < ApplicationController
   def set_profile
     @user = User.find(params[:user_id])
   end
+
 end
