@@ -1,13 +1,15 @@
 class GamesController < ApplicationController
-  before_action :set_user, only: [:edit, :show, :new]
+  before_action :set_user, only: [:edit, :new, :library]
   def index
     @games = Game.all
   end
   
   def library
-    set_user.id
+    @games = @user.games
   end
+
   def show
+    @game = Game.find(params[:game_id])
   end
 
   def edit

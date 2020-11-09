@@ -1,3 +1,9 @@
 <div class="hero-image">
     <h1>Welcome to Balance Games</h1>
 </div>
+<% @games.each do |game| %>
+    <div>
+        <h1><%=link_to game.title, game_path(game.id) %></h1>
+    </div>
+<% end %>   
+
