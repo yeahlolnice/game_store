@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   rolify
+  has_and_belongs_to_many :games
   after_create :assign_default_role
   has_one_attached :picture, dependent: :destroy
   # Include default devise modules. Others available are:

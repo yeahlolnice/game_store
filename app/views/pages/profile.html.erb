@@ -2,7 +2,8 @@
 <div class="pp">
     <%= image_tag @user.picture if @user.picture.attached? %>
 </div>
-<p>Description:</p> 
+<p>Description:</p>
+<p><%= @user.bio %></p> 
 <p><%= @user.email %></p>
 <% if current_user.id == @user.id or current_user.has_role? :admin %>
     <%= link_to "Edit Profile", edit_user_registration_path(@user) %>
