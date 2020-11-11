@@ -1,2 +1,27 @@
-<h1>Games#edit</h1>
-<p>Find me in app/views/games/edit.html.erb</p>
+<h1>Edit <%= @game.title %></h1>
+
+<%= form_with model: @game, local: true do |f| %>
+<div class="field">
+    <%= f.label :picture %><br />
+    <%= f.file_field :picture, accept: 'image/jpeg, image/png, image/jpg' %>
+</div>
+<div class="game-pic">
+    <%= image_tag @game.picture if @game.picture.attached? %>
+</div>
+<div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+</div>
+<div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+</div>
+<div>
+    <%= f.label :price %>
+    <%= f.number_field :price, min: 0, step: 0.01 %>      
+</div>
+<div>
+    <p><%= link_to 'Delete', game_path(@game.id), method: :delete, data: { confirm: "Are you really realy sure??" } %></p>
+    <%= f.submit "Edit" %>
+</div>
+<% end %>

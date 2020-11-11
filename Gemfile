@@ -54,3 +54,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
 gem "rolify", "~> 5.3"
+
+gem "stripe", "~> 5.28"
+
+gem 'dotenv-rails', groups: [:development, :test]
