@@ -5,6 +5,7 @@
     <%= image_tag @game.picture if @game.picture.attached? %>
 </div>
 <div>
+    <h4>Developer: <%= @game.owner %></h4>
     <h4><%= @game.description %></h4>
     <h4>Price: $<%= @game.price %></h4>
 </div>

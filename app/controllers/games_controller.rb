@@ -23,18 +23,20 @@ class GamesController < ApplicationController
     @game = Game.find(params[:id])
   end
 
-  def new
-    @game = Game.new
-  end
-
   def update
     @game.update(set_game_params)
     redirect_to game_path(@game.id)
     # render json: params
   end
 
+  def new
+    @game = Game.new
+  end
+  
   def create
-    @game = Game.create(set_game_params)
+    @game = Game.new(set_game_params)
+    @game.owner = current_user.username
+    @game.save()
     redirect_to game_path(@game.id)
   end
 

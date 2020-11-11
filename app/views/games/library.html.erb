@@ -1,7 +1,9 @@
 <h1><%= @user.username %>'s Games</h1>
-<h1><% @games.each do |g| %></h1>
-<div>
-    <h1><%= g.title%></h1>
-    <p><% %></p>
-</div>
+<% @games.each do |game| %>
+    <div>
+        <h1><%=link_to game.title, game_path(game.id) %></h1>
+        <div class="game-pic">
+            <%= image_tag game.picture if game.picture.attached? %>
+        </div>
+    </div>
 <% end %>

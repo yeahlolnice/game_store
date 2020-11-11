@@ -10,7 +10,9 @@
 <% end %>
 <% @games.each do |game| %>
     <div>
-        <%= game.title %>
-        <%= game.description %>   
+        <h1><%=link_to game.title, game_path(game.id) %></h1>
+        <div class="game-pic">
+            <%= image_tag game.picture if game.picture.attached? %>
+        </div>
     </div>
 <% end %>
