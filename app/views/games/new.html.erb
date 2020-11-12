@@ -17,9 +17,9 @@
         <%= f.label :picture %><br />
         <%= f.file_field :picture, accept: 'image/jpeg, image/png, image/jpg' %>
     </div>
-    <div>
-        <%= f.label "Game folder" %>     
-        <%= f.file_field :game_file %>
+    <div class="field">
+        <%= f.label :game_folder %>     
+        <%= f.file_field :game_folder, accept: 'application/zip' %>
     </div>
     <!-- <div>
         <%# f.label :menus %>

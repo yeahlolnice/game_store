@@ -4,6 +4,7 @@
         <h1><%=link_to game.title, game_path(game.id) %></h1>
         <div class="game-pic">
             <%= image_tag game.picture if game.picture.attached? %>
+            <%= link_to "Download #{game.title}", rails_blob_path(game.game_folder, disposition: 'attachment') %>
         </div>
     </div>
 <% end %>

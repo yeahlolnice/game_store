@@ -41,10 +41,12 @@ class GamesController < ApplicationController
   end
   
   def create
+    @user = signed_in_user
     @game = Game.new(set_game_params)
     @game.owner = current_user.username
     @game.approved = false
     @game.save()
+    @user.games.push(@game)
     redirect_to game_path(@game.id)
   end
 
@@ -81,10 +83,12 @@ class GamesController < ApplicationController
     @user = User.find(current_user.id)
     @user.games.push(@game)
     redirect_to games_path
+    flash[:alert] = "Your purchase was successful!"
   end
 
   def cancel
-    render plain: 'not success'
+    redirect_to games_path
+    flash[:alert] = "Payment was unsuccessful!"
   end
 
   private
@@ -94,7 +98,7 @@ class GamesController < ApplicationController
   end
 
   def set_game_params
-    params.require(:game).permit(:title, :description, :price, :picture)
+    params.require(:game).permit(:title, :description, :price, :picture, :game_folder)
   end
   
   def set_game
@@ -107,5 +111,9 @@ class GamesController < ApplicationController
 
   def set_games
     @games = Game.all
+  end
+  
+  def signed_in_user
+    @user = User.find(current_user.id)
   end
 end
