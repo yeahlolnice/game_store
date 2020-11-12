@@ -9,8 +9,16 @@
     <h4><%= @game.description %></h4>
     <h4>Price: $<%= @game.price %></h4>
 </div>
-<p><%= link_to 'Edit Game', edit_game_path(@game.id) %></p>
-<p><button id="buynow-button">Buy Now!</button></p>
+<% if user_signed_in? %>
+    <% if current_user.username == @game.owner %>
+        <p><%= link_to 'Edit Game', edit_game_path(@game.id) %></p>
+    <% end %>   
+<% end %>
+<% if user_signed_in? %>
+    <p><button id="buynow-button">Buy Now!</button></p>
+<% else %>
+    <h2><%= link_to "Login to purchase this game!", new_user_session_path %></h2>
+<% end %>
 
 <script src="https://js.stripe.com/v3/"></script>
 

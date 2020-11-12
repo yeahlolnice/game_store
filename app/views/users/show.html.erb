@@ -5,8 +5,10 @@
 <p>Description:</p>
 <p><%= @user.bio %></p> 
 <p><%= @user.email %></p>
-<% if current_user.id == @user.id or current_user.has_role? :admin %>
-    <%= link_to "Edit Profile", edit_user_registration_path(@user) %>
+<% if user_signed_in? %>
+    <% if current_user.id == @user.id or current_user.has_role? :admin %>
+        <%= link_to "Edit Profile", edit_user_registration_path(@user) %>
+    <% end %>
 <% end %>
 <% @games.each do |game| %>
     <div>

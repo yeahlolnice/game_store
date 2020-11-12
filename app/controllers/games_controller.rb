@@ -1,9 +1,9 @@
 class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:buy]
-  before_action :authenticate_user!, except: [:buy, :index]
+  before_action :authenticate_user!, except: [:index, :show, :edit]
   before_action :set_games, only: [:index, :library]
   before_action :set_user, only: [:library]
-  before_action :set_game, only: [:buy, :update, :destroy]
+  before_action :set_game, only: [:buy, :update, :destroy, :success]
   
   def index
     @games = Game.all
@@ -15,12 +15,19 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    p @game
-    p params
+    
   end
 
   def edit
     @game = Game.find(params[:id])
+    @game_owner = User.find_by_username(@game.owner)
+    if !user_signed_in?
+      redirect_to new_user_session_path()
+    else
+      if current_user.id != @game_owner.id
+        redirect_to games_path()
+      end
+    end
   end
 
   def update
@@ -36,6 +43,7 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(set_game_params)
     @game.owner = current_user.username
+    @game.approved = false
     @game.save()
     redirect_to game_path(@game.id)
   end
@@ -70,7 +78,9 @@ class GamesController < ApplicationController
   end
 
   def success
-    render plain: 'Success'
+    @user = User.find(current_user.id)
+    @user.games.push(@game)
+    redirect_to games_path
   end
 
   def cancel
@@ -78,6 +88,10 @@ class GamesController < ApplicationController
   end
 
   private
+
+  def add_game
+
+  end
 
   def set_game_params
     params.require(:game).permit(:title, :description, :price, :picture)
