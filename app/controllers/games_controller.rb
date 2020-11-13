@@ -15,6 +15,7 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
+    @reviews = Review.where(game_id: params[:id])
     
   end
 

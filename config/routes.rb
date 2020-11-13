@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
-  get 'reviews/show'
-  get 'reviews/new'
-  get 'reviews/edit'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
+  
+  #reviews controller routes
+  resources :reviews
+  post 'games/:id', to: 'reviews#create'
+  post 'reviews/:id', to: 'reviews#update'
+  # get 'games/:game_id/reviews/:review_id', to: 'reviews#show'
+  # get 'games/:game_id/reviews/new', to: 'reviews#new'
+  # get 'reviews/review_id/edit'
   
   #game controller routes
   resources :games
