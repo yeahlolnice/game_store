@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'reviews/show'
+  get 'reviews/new'
+  get 'reviews/edit'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }

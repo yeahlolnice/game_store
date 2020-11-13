@@ -7,7 +7,7 @@
 <div>
     <h4>Developer: <%= @game.owner %></h4>
     <h4><%= @game.description %></h4>
-    <h4>Price: $<%= @game.price %></h4>
+    <h4>Price: <%= "$%.2f" % @game.price %></h4>
 </div>
 <% if user_signed_in? %>
     <% if current_user.username == @game.owner %>
