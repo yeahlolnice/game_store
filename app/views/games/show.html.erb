@@ -1,12 +1,13 @@
 <div>
     <h1><%= @game.title %></h1>
-</div>
-<div class="game-pic">
-    <%= image_tag @game.picture if @game.picture.attached? %>
+    <% if @game.picture.attached? %>
+        <%= image_tag @game.picture, class: 'show-game-pic' %>
+    <% end %>
 </div>
 <div>
     <h4>Developer: <%= @game.owner %></h4>
     <h4><%= @game.description %></h4>
+    <h4>Rating: <%= @game.avg_rating %></h4>
     <h4>Price: <%= "$%.2f" % @game.price %></h4>
 </div>
 <% if user_signed_in? %>
@@ -63,20 +64,20 @@
             <% end %> 
             <% @reviews.each do |review| %>
                 <div>
-                    <h3><%= review.user %> </h3>
+                    <h5><%= review.user %> </h3>
                     <h2><%= review.title %> </h2>
                     <h4><%= review.content %></h4> 
                     <h4>Rating: <%= "%.1f" % review.rating %></h4> 
                     <% if current_user.username == review.user %>
                         <h6><%= link_to "Edit", edit_review_path(review.id) %></h6>
                     <% end %>
+                    <hr>
                 </div>
             <% end %>
-        <% else %>
-                <h2>Buy this game to leave a review!</h2>
         <% end %>
     <% end %>
-    
+<% else %>
+    <h2>Buy this game to leave a review!</h2>
 <% end %>
 
 

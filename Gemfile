@@ -58,3 +58,5 @@ gem "rolify", "~> 5.3"
 gem "stripe", "~> 5.28"
 
 gem 'dotenv-rails', groups: [:development, :test]
+
+gem "bootstrap", "~> 4.5"

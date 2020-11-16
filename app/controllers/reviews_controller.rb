@@ -13,10 +13,9 @@ before_action :find_review, only: [:edit, :update, :destroy]
     @review.user = current_user.username
     @review.game_id = params[:id]
     @review.save
+    update_game_rating(@review.game_id)
     redirect_to game_path(@review.game_id)
   end
-
-
 
   def edit
     if !user_signed_in?
@@ -51,5 +50,16 @@ before_action :find_review, only: [:edit, :update, :destroy]
 
   def set_reviews
     @reviews = Review.where(params[:id])
+  end
+
+  def update_game_rating(game_id)
+    avg = 0
+    @reviews = Review.where(game_id: game_id)
+    @reviews.each do |review|
+      avg += review.rating
+    end
+    avg = avg / @reviews.size
+    @game = Game.find(game_id)
+    @game.update(avg_rating: avg)
   end
 end
