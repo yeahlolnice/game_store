@@ -1,6 +1,6 @@
 <h1>Welcome to <%= @user.username %>'s profile</h1>
 <div>
-    <%= image_tag @user.picture if @user.picture.attached? %>
+    <%= image_tag @user.picture, class: "rounded float-left img-thumbnail" if @user.picture.attached? %>
 </div>
 <p>Description:</p>
 <p><%= @user.bio %></p> 
@@ -10,11 +10,17 @@
         <%= link_to "Edit Profile", edit_user_registration_path(@user) %>
     <% end %>
 <% end %>
-<% @games.each do |game| %>
-    <div>
-        <h1><%=link_to game.title, game_path(game.id) %></h1>
-        <div>
-            <%= image_tag game.picture, class: 'game-pic' if game.picture.attached? %>
+<div class="row">
+    <% @games.each do |game| %>
+        <div class="card col-lg-3" style="width: 20rem;">
+            <% if game.picture.attached? %>
+                <%= image_tag game.picture, class: "card-img-top" %>
+            <% end %>
+            <div class="card-body">
+                <h5 class="card-title"><%= game.title %></h5>
+                <p class="card-text"><%= game.description %></p>
+                <%=link_to "More", game_path(game.id), class: "btn btn-primary" %>
+            </div>
         </div>
-    </div>
-<% end %>
+    <% end %>
+</div>
