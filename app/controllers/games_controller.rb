@@ -1,12 +1,11 @@
 class GamesController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:buy]
   before_action :authenticate_user!, except: [:index, :show, :edit]
-  before_action :set_games, only: [:index, :library]
+  before_action :set_games, only: [:index]
   before_action :set_user, only: [:library]
-  before_action :set_game, only: [:buy, :update, :destroy, :success]
+  before_action :set_game, only: [:buy, :update, :destroy, :success, :approved]
   
   def index
-    @games = Game.all
   end
   
   def library
@@ -46,9 +45,14 @@ class GamesController < ApplicationController
     @game = Game.new(set_game_params)
     @game.owner = current_user.username
     @game.approved = false
-    @game.save()
-    @user.games.push(@game)
-    redirect_to game_path(@game.id)
+    if @game.save
+      redirect_to game_path(@game.id)
+    else
+      flash[:form_errors] = @game.errors.full_messages
+      render "new"
+      # redirect_to new_game_path
+      # flash[:error] = "Must fill out every area in the form"
+    end
   end
 
   def destroy
@@ -91,6 +95,28 @@ class GamesController < ApplicationController
     redirect_to games_path
     flash[:alert] = "Payment was unsuccessful!"
   end
+  
+  def restricted
+    if user_signed_in?
+      if current_user.has_role?(:admin)
+        @games = Game.where(approved: false)
+      else
+        redirect_to games_path
+        flash[:alert] = "You dont have access to this page"
+      end
+    else
+      redirect_to games_path
+      flash[:alert] = "You dont have access to this page"
+    end
+  end
+
+  def approved
+    @game.update(approved: true)
+    @user = User.find_by_username(@game.owner)
+    @user.games.push(@game)
+    # redirect_to game_path(@game.id)
+    redirect_to games_restricted_path
+  end
 
   private
 
@@ -111,7 +137,7 @@ class GamesController < ApplicationController
   end
 
   def set_games
-    @games = Game.all
+    @games = Game.where(approved: true)
   end
   
   def signed_in_user

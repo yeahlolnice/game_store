@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   # get 'reviews/review_id/edit'
   
   #game controller routes
+  get 'games/restricted', to: 'games#restricted'
+  put "games/:id", to: "games#approved", as: "approve_game"
   resources :games
   get 'library/:user_id', to: 'games#library', as: 'library'
   post "games/:id/buy", to: 'games#buy', as: 'buy'
@@ -23,6 +25,7 @@ Rails.application.routes.draw do
   # get 'games/:game_id/edit', to: 'games#edit', as: 'game_edit'
   # post 'games/:game_id/edit', to: 'games#update'
   
+  #user routes
   get 'profiles/:user_id', to: 'users#show', as: 'profile'
   #root route
   root 'games#index'

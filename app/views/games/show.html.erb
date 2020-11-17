@@ -16,7 +16,11 @@
     <% end %>   
 <% end %>
 <% if user_signed_in? %>
-    <p><button id="buynow-button">Buy Now!</button></p>
+    <% if @game.approved == true %>
+        <p><button id="buynow-button">Buy Now!</button></p>
+    <% else %>
+    <h3>This game is waiting approval!</h3>
+    <% end %>
 <% else %>
     <h2><%= link_to "Login to purchase this game!", new_user_session_path %></h2>
 <% end %>
@@ -44,7 +48,13 @@
     <% current_user.games.each do |game| %>
         <% if game.id == @game.id %>
             <h1>Leave a review! </h1>
-
+            <%= form_with model: @game, local: true do |f| %>
+                <% if flash[:form_errors] %>
+                    <% flash[:form_errors].each do |error| %>
+                        <p><%= error %></p>
+                    <% end %>
+                <% end %>
+            <% end %>
             <%= form_with model: @review, local: true do |f| %>
                 <div>
                     <%= f.label :title %>

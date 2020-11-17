@@ -1,13 +1,25 @@
 <div class="hero-image">
     <h1>Welcome to Balance Games</h1>
 </div>
-<% @games.each do |game| %>
-    <div>
-        <h1><%=link_to game.title, game_path(game.id) %></h1>
-        <% if game.picture.attached? %>
-            <%= image_tag game.picture, class: "game-pic" %>
-        <% end %>
-    </div>
-<% end %>   
+<div class="row">
+    <% @games.each do |game| %>
+        <div class="card col-lg-3" style="width: 20rem;">
+            <% if game.picture.attached? %>
+                <%= image_tag game.picture, class: "card-img-top" %>
+            <% end %>
+            <div class="card-body">
+                <h5 class="card-title"><%= game.title %></h5>
+                <p class="card-text"><%= game.description %></p>
+                <%=link_to "More", game_path(game.id), class: "btn btn-primary" %>
+            </div>
+        </div>
+    <% end %>
+</div>
+   
 
 <%= link_to "Submit Your Games Here!", new_game_path %>
+<% if user_signed_in? %>
+    <% if current_user.has_role?(:admin) %>
+        <h1><%= link_to "View Games Waiting Approval", games_restricted_path %></h1>
+    <% end %>
+<% end %>

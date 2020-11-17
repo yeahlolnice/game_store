@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :set_reviews, only: [:show]
-before_action :find_review, only: [:edit, :update, :destroy]
+  before_action :find_review, only: [:edit, :update, :destroy]
   def show
   end
 
@@ -12,9 +12,13 @@ before_action :find_review, only: [:edit, :update, :destroy]
     @review = Review.new(permit_params)
     @review.user = current_user.username
     @review.game_id = params[:id]
-    @review.save
-    update_game_rating(@review.game_id)
-    redirect_to game_path(@review.game_id)
+    if @review.save
+      update_game_rating(@review.game_id)
+      redirect_to game_path(@review.game_id)
+    else
+      flash[:form_errors] = @review.errors.full_messages
+      redirect_to game_path(params[:id])
+    end
   end
 
   def edit
