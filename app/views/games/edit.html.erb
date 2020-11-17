@@ -5,8 +5,8 @@
     <%= f.label :picture %><br />
     <%= f.file_field :picture, accept: 'image/jpeg, image/png, image/jpg' %>
 </div>
-<div class="game-pic">
-    <%= image_tag @game.picture if @game.picture.attached? %>
+<div>
+    <%= image_tag @game.picture, class: "game-pic" if @game.picture.attached? %>
 </div>
 <div>
     <%= f.label :title %>

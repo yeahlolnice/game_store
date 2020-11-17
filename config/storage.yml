@@ -14,7 +14,7 @@ amazon:
   secret_access_key: <%= ENV['SECRET_ACCESS_KEY'] %>
   # secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
   region: ap-southeast-2
-  bucket: game-store-photo-bucket
+  bucket: game-store-bucket
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:

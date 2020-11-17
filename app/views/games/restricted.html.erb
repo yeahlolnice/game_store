@@ -1,0 +1,12 @@
+<h1>admin page</h1>
+
+<% @games.each do |game| %>
+    <div>
+        <h1><%=link_to game.title, game_path(game.id) %></h1>
+        <% if game.picture.attached? %>
+            <%= image_tag game.picture, class: "game-pic" %>
+        <% end %>
+        <%= link_to "Approve", approve_game_path(game.id), method: :put, class: "btn btn-secondary" %>
+        <%= button_to "Delete", game_path(game.id), method: :delete, class: "btn btn-danger" %>
+    </div>
+<% end %>

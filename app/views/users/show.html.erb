@@ -1,5 +1,5 @@
 <h1>Welcome to <%= @user.username %>'s profile</h1>
-<div class="pp">
+<div>
     <%= image_tag @user.picture if @user.picture.attached? %>
 </div>
 <p>Description:</p>
@@ -13,8 +13,8 @@
 <% @games.each do |game| %>
     <div>
         <h1><%=link_to game.title, game_path(game.id) %></h1>
-        <div class="game-pic">
-            <%= image_tag game.picture if game.picture.attached? %>
+        <div>
+            <%= image_tag game.picture, class: 'game-pic' if game.picture.attached? %>
         </div>
     </div>
 <% end %>

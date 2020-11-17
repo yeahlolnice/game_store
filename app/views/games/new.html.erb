@@ -1,6 +1,11 @@
 <h1>Submit a game you have created!</h1>
 
 <%= form_with model: @game, local: true do |f| %>
+    <% if flash[:form_errors] %>
+        <% flash[:form_errors].each do |error| %>
+            <p><%= error %></p>
+        <% end %>
+    <% end %>
     <div>
         <%= f.label :title %>
         <%= f.text_field :title %>
@@ -13,11 +18,11 @@
         <%= f.label :price %> $:
         <%= f.number_field :price, min: 0, step: 0.01%>      
     </div>
-    <div class="field">
+    <div >
         <%= f.label :picture %><br />
         <%= f.file_field :picture, accept: 'image/jpeg, image/png, image/jpg' %>
     </div>
-    <div class="field">
+    <div >
         <%= f.label :game_folder %>     
         <%= f.file_field :game_folder, accept: 'application/zip' %>
     </div>
