@@ -1,6 +1,6 @@
 <h1>Welcome to <%= @user.username %>'s profile</h1>
 <div>
-    <%= image_tag @user.picture, class: "rounded float-left img-thumbnail" if @user.picture.attached? %>
+    <%= image_tag @user.picture, style: "height:200px;width:200px;" if @user.picture.attached?  %>
 </div>
 <p>Description:</p>
 <p><%= @user.bio %></p> 
