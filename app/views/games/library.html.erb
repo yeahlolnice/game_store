@@ -1,12 +1,19 @@
 <h1><%= @user.username %>'s Games</h1>
-<% @games.each do |game| %>
-    <div>
-        <h1><%=link_to game.title, game_path(game.id) %></h1>
-        <div >
-            <%= image_tag game.picture, class: "game-pic" if game.picture.attached? %>
-            <% if current_user.id == @user.id %>
-                <%= link_to "Download #{game.title}", rails_blob_path(game.game_folder, disposition: 'attachment') %>
+<div class="row">
+    <% @games.each do |game| %>
+        <div class="card col-lg-3" style="width: 20rem;">
+            <% if game.picture.attached? %>
+                <%= image_tag game.picture, class: "card-img-top" %>
             <% end %>
+            <div class="card-body">
+                <h5 class="card-title"><%= game.title %></h5>
+                <%=link_to "More", game_path(game.id), class: "btn btn-primary" %>
+                <% if current_user.id == @user.id %>
+                    <%= link_to "Download #{game.title}", rails_blob_path(game.game_folder, disposition: 'attachment'), class: "btn btn-primary" %>
+                <% end %>
+            </div>
         </div>
-    </div>
-<% end %>
+    <% end %>
+</div>
+
+
