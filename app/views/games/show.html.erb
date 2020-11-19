@@ -17,7 +17,9 @@
 <% end %>
 <% if user_signed_in? %>
     <% if @game.approved == true %>
-        <p><button id="buynow-button">Buy Now!</button></p>
+        <% if current_user.games.include?(@game) == false %>
+            <p><button id="buynow-button">Buy Now!</button></p>
+        <% end %>
     <% else %>
     <h3>This game is waiting approval!</h3>
     <% end %>

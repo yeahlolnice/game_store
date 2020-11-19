@@ -13,9 +13,13 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find(params[:id])
-    @reviews = Review.where(game_id: params[:id])
-    
+    if params[:id].to_i > Game.last.id
+      redirect_to games_path
+      flash[:alert] = "Could not find a game by id #{params[:id]}"
+    else
+      @game = Game.find(params[:id])
+      @reviews = Review.where(game_id: params[:id])
+    end
   end
 
   def edit
