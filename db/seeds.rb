@@ -5,20 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+Review.destroy_all
 User.destroy_all
 Game.destroy_all
-Review.destroy_all
 Role.destroy_all
 
 user1 = User.new(email: "a@b.com", password: "123456", username: "yeahlolnice", bio: "bloody top bloke")
 user1.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "doghax.jpg")), filename: 'doghax.jpg', content_type: 'image/jpg' )
 user1.save!
 
-user2 = User.create!(email: "test@test", password: "123456", username: "Gaming_God")
+user2 = User.create!(email: "test@test", password: "123456", username: "Gaming_God", bio: "trust me you want me on your team")
 user2.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "doge2.jpg")), filename: 'doge2.jpg', content_type: 'image/jpg' )
 user2.save!
 
-user3 = User.create!(email: "test2@test", password: "123456", username: "xxKaranxx")
+user3 = User.create!(email: "test2@test", password: "123456", username: "xxKaranxx", bio: "Get the manager")
 user3.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "doge.jpg")), filename: 'doge.jpg', content_type: 'image/jpg' )
 user3.save!
 
@@ -38,7 +38,7 @@ game3.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "sn
 game3.save!()
 
 Review.create!(user: user1.username, title: "Love it!", content: "yeah probs the best game", rating: 4, game_id: game1.id )
-Review.create!(user: user3.username, title: "hate it!", content: "one of the worst games i have played", rating: 1, game_id: game1.id )
+Review.create!(user: user3.username, title: "hate it!", content: "Not what I expected, I want to talk to the manager", rating: 1, game_id: game1.id )
 Review.create!(user: user2.username, title: "pretty chill game!", content: "super chill to play really enjoyed it", rating: 3, game_id: game1.id )
 Review.create!(user: user2.username, title: "amazing!", content: "one of the best for sure!", rating: 4.5, game_id: game2.id )
 Review.create!(user: user1.username, title: "this will be big", content: "can see with a few updates this game will be great", rating: 3, game_id: game2.id )
@@ -47,8 +47,8 @@ Role.create!(name: "admin")
 user1.add_role(:admin)
 
 user1.games.push(game1, game2)
-user2.games.push(game3)
-user1.games.push(game2)
+user2.games.push(game3, game2)
+user3.games.push(game2)
 
 puts "Users created: #{User.count}"
 puts "Games created: #{Game.count}"
