@@ -22,7 +22,7 @@ user3 = User.create!(email: "test2@test", password: "123456", username: "xxKaran
 user3.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "doge.jpg")), filename: 'doge.jpg', content_type: 'image/jpg' )
 user3.save!
 
-game1 = Game.new(title: "space invaders", description: "this game is about alians attacking with lazers", approved: "true", avg_rating: "2", price: "2", owner: user1.username)
+game1 = Game.new(title: "space invaders", description: "this game is about alians attacking with lazers", approved: "true", avg_rating: "2", price: "3.50", owner: user1.username)
 game1.game_folder.attach(io: File.open(Rails.root.join("app", "assets", "games", "SpaceInvaders.zip")), filename: 'SpaceInavaders.zip', content_type: 'application/zip')
 game1.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "spaceinvaders.jpg")), filename: 'spaceinvaders.jpg', content_type: 'image/jpg')
 game1.save!()
@@ -32,10 +32,25 @@ game2.game_folder.attach(io: File.open(Rails.root.join("app", "assets", "games",
 game2.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "bomberman.jpg")), filename: 'bomberman.jpg', content_type: 'image/jpg')
 game2.save!()
 
-game3 = Game.new(title: "Snek.io", description: "yeah good game", approved: "false", avg_rating: "2", price: "2", owner: user2.username)
+game3 = Game.new(title: "Snek.io", description: "yeah good game", approved: "false", avg_rating: "0", price: "15", owner: user2.username)
 game3.game_folder.attach(io: File.open(Rails.root.join("app", "assets", "games", "snek.zip")), filename: 'snek.zip', content_type: 'application/zip')
 game3.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "snek.jpg")), filename: 'snek.jpg', content_type: 'image/jpg')
 game3.save!()
+
+game4 = Game.new(title: "pokemon", description: "Got to catch em all", approved: "true", avg_rating: "4", price: "5", owner: user1.username)
+game4.game_folder.attach(io: File.open(Rails.root.join("app", "assets", "games", "SpaceInvaders.zip")), filename: 'SpaceInavaders.zip', content_type: 'application/zip')
+game4.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "pokemon.jpg")), filename: 'pokemon.jpg', content_type: 'image/jpg')
+game4.save!()
+
+game5 = Game.new(title: "Zelda", description: "green midget fights his way to his regular sized girlfriend", approved: "true", avg_rating: "3", price: "7.50", owner: user3.username)
+game5.game_folder.attach(io: File.open(Rails.root.join("app", "assets", "games", "Donkey_Kong.zip")), filename: 'Donkey_Kong.zip', content_type: 'application/zip')
+game5.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "zelda.jpg")), filename: 'zelda.jpg', content_type: 'image/jpg')
+game5.save!()
+
+game6 = Game.new(title: "Flappy bird", description: "you're a bird that flaps his way through mario pipes", approved: "false", avg_rating: "0", price: "10", owner: user2.username)
+game6.game_folder.attach(io: File.open(Rails.root.join("app", "assets", "games", "snek.zip")), filename: 'snek.zip', content_type: 'application/zip')
+game6.picture.attach(io: File.open(Rails.root.join("app","assets", "images", "flappybird.jpg")), filename: 'flappybird.jpg', content_type: 'image/jpg')
+game6.save!()
 
 Review.create!(user: user1.username, title: "Love it!", content: "yeah probs the best game", rating: 4, game_id: game1.id )
 Review.create!(user: user3.username, title: "hate it!", content: "Not what I expected, I want to talk to the manager", rating: 1, game_id: game1.id )

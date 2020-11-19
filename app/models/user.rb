@@ -10,6 +10,7 @@ class User < ApplicationRecord
        
   validates :username, :email, presence: true, uniqueness: true
   validates :picture, content_type: [:png, :jpg, :jpeg]
+  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
 
   def assign_default_role
     self.add_role(:public) if self.roles.blank?
